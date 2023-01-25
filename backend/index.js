@@ -9,4 +9,4 @@ app.use(express.json());
 app.use(cors({ credentials: true, origin: process.env.URL_CORS}))
 app.use(express.static('public'));
 
-app.listen(5000);
+app.listen(port);
