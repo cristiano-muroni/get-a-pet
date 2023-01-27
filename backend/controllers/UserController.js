@@ -1,6 +1,9 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const createUserToken = require('../helpers/create-user-token');
+const getToken = require('../helpers/get-token');
+require('dotenv').config();
 
 module.exports = class UserControler {
     static async register(req, res) {
@@ -85,9 +88,13 @@ module.exports = class UserControler {
     };
 
     static async checkUser(req, res) {
-        let currentUser
+        let currentUser;
         console.log(req.headers.authorization);
         if(req.headers.authorization) {
+            const token = getToken(req);
+            const decoded = jwt.verify(token, process.env.OUR_SECRET);
+            currentUser = await User.findById(decoded.id);
+            currentUser.password = undefined;
 
         }else {
             currentUser = null;
