@@ -22,9 +22,8 @@ const User = mongoose.model(
          phone: {
             type: String,
             required:true
-         },
-         timestamps: true,
-    })
+         },        
+    }, {timestamps: true})
 )
 
 module.exports = User;
