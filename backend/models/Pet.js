@@ -10,7 +10,7 @@ const Pet = mongoose.model("Pet", new Schema({
         type: Number,
         required: true
     },
-    wheight: {
+    weight: {
         type: Number,
         required: true
     },
