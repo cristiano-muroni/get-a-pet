@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const UserControler = require('../controllers/UserController');
+const UserController = require('../controllers/UserController');
 const verifyToken = require('../helpers/verify-token');
 const { imageUpload } = require('../helpers/image-upload');
 
-router.post('/register', UserControler.register);
-router.post('/login', UserControler.login);
-router.get('/checkuser', UserControler.checkUser);
-router.get('/:id', UserControler.getUserById);
-router.patch('/edit/:id', verifyToken, imageUpload.single("image"), UserControler.editUser);
+router.post('/register', UserController.register);
+router.post('/login', UserController.login);
+router.get('/checkuser', UserController.checkUser);
+router.get('/:id', UserController.getUserById);
+router.patch('/edit/:id', verifyToken, imageUpload.single("image"), UserController.editUser);
 
 module.exports = router;
