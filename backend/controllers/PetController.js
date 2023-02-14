@@ -256,10 +256,39 @@ module.exports = class PetController {
 
     await Pet.findByIdAndUpdate(id, pet);
 
+    return res.status(200).json({
+      message: `Sua visita foi agendada com o proprietário ${pet.user.name}, telefone ${pet.user.phone}`,
+    });
+  }
+
+  static async concludeAdoption(req, res) {
+    const id = req.params.id;
+    // check if pet exists
+    const pet = await Pet.findOne({ _id: id });
+
+    if (!pet) {
+      res.status(404).json({ message: "Pet não encontrado!" });
+      return;
+    }
+
+    // check if user registered this pet
+    const token = getToken(req);
+    const user = await getUserByToken(token);
+
+    if (pet.user._id.toString() != user._id.toString()) {
+      res.status(404).json({
+        message:
+          "Houve um problema em processar sua solicitação, tente novamente mais tarde!",
+      });
+      return;
+    }
+
+    pet.available = false;
+
+    await Pet.findByIdAndUpdate(id, pet);
+
     return res
       .status(200)
-      .json({
-        message: `Sua visita foi agendada com o proprietário ${pet.user.name}, telefone ${pet.user.phone}`,
-      });
+      .json({ messgae: "Parabéns! O ciclo de adoção foi concluído!" });
   }
 };
