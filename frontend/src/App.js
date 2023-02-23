@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
 
+
+
 /* components */
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
@@ -39,3 +41,4 @@ function App() {
 }
 
 export default App;
+
